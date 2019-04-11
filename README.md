@@ -8,12 +8,11 @@ If by any change the command stops working it will be deregistered automatically
 
 ```
 Usage of ./consul-wrapper:
-  -args string
-        String with all arguments
-  -command string
-        Command to run
-  -frequency int
-        Health Check Frequency (in seconds) (default 30)
+
+        ./consul-wrapper [options] -service <ServiceName> <Command> [Args]
+
+  -frequency duration
+        Health Check Frequency (in seconds) (default 30ns)
   -service string
         Consul Service Name
   -token string
@@ -23,11 +22,12 @@ Usage of ./consul-wrapper:
 ## Example
 
 ```
- ./consul-wrapper -service plop -frequency 10 -command consul -args "monitor -log-level trace"
-Registering 'plop' in consul
-Process is running
+ ./consul-wrapper -service plop -frequency 10s consul monitor -log-level trace
+2019/04/11 20:16:44 [ConsulWrapper] Registering 'plop' in consul
 ...
-Process is running
-Process exited. Exit code:  0
-Deregistering 'plop' from consul
+2019/04/11 20:17:14 [ConsulWrapper] Process is running
+...
+2019/04/11 20:17:40 [ConsulWrapper] Error:  signal: killed
+2019/04/11 20:17:40 [ConsulWrapper] Process stopped running. Exit code:  -1
+2019/04/11 20:17:40 [ConsulWrapper] Deregistering 'plop' from consul
 ```
