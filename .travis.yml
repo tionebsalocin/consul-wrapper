@@ -1,0 +1,25 @@
+language: go
+go:
+- 1.x
+script:
+- go get -u
+- GOOS=linux go build -o consul-wrapper-linux
+- GOOS=darwin go build -o consul-wrapper-macos
+- GOOS=windows go build -o consul-wrapper-windows.exe
+sudo: false
+before_deploy:
+- echo "Deploying $TRAVIS_TAG to GitHub releases"
+- tar czf consul-wrapper-linux.tar.gz consul-wrapper-linux
+- tar czf consul-wrapper-macos.tar.gz consul-wrapper-macos
+- zip -r consul-wrapper-windows.zip consul-wrapper-windows.exe
+deploy:
+  provider: releases
+  api_key:
+    secure: NsedjJtO6wzdnrWrX+c/8fxX8njUeNfSzWQqS/ggk9uKZD5dG2VcyRYzdVRbRqXEaiExuE/Id84xSzBZlKkdbBYJByvkZlyoPlr/w8OSkdJo++S9JhNkZWOSM7pjy9XTnGfk12K1TQAOf4JltHxwGRLsvazIOwpGrC9+suIXmxMHGpi73xGdwRRHRVvCrWwSIgFidqRgg4JTPRxhYNGEfRjiwTLnCf/SDK2gp7LlpeYsQqnYU094g00pZn2t/N5DrLtzwa+1jsJ7R8Tz1e6ubFwlI9jUYQ5r5jFrVAi0uTN6q3T+M6PJ6h/GfRp8XPbI28v+6gk0EIx/xXoOiuALXzaole8HETrHMHQwGxa8bvn1qRJT7NSN097oB2U3o9B61sYkyX7GFcmSerK2knKUv036eArirZEM4oSVMBB6GkZY6AuEq3fOyiTEcCPVt9ZGFiPVpfyCgvOHS0MKbaC8Zt9rlrrekeIqBOCepsKttms8y6hgn8cjMkugN3sRLrZWeeX3GL8QutZWECnKlXwA660oE6IR4V7Uf27jWBwZ8ULcU1vEu0OmyLEnn6nNXnX3SsRmqsxoqZNhnUKXWTz51JJog1cyyelevY2tNS8IjWy953Jzh1Ps46NUNDDSFOMCGHN7E80B5CVnNj/Iac1fzXN/4zmL5jtqV+69UlRMSzk=
+  file_glob: true
+  file:
+  - consul-wrapper-*.tar.gz
+  - consul-wrapper-*.zip
+  skip_cleanup: true
+  on:
+    repo: tionebsalocin/consul-wrapper
