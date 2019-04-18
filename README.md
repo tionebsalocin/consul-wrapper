@@ -7,22 +7,21 @@ If by any change the command stops working it will be deregistered automatically
 ## Usage
 
 ```
-Usage of ./consul-wrapper:
+Usage:
+  consul-wrapper [flags] "<command> [args]"
 
-        ./consul-wrapper [options] -service <ServiceName> <Command> [Args]
-
-  -frequency duration
-        Health Check Frequency (in seconds) (default 30ns)
-  -service string
-        Consul Service Name
-  -token string
-        Consul token used for registration
+Flags:
+  -f, --frequency duration   Health Check Frequency (in seconds) (default 30s)
+  -h, --help                 help for consul-wrapper
+  -p, --port int             Service port
+  -s, --service string       Consul Service Name
+  -t, --token string         Consul token used for registration
 ```
 
 ## Example
 
 ```
- ./consul-wrapper -service plop -frequency 10s consul monitor -log-level trace
+ ./consul-wrapper --service plop --port 8080 --frequency 10s "consul monitor -log-level trace"
 2019/04/11 20:16:44 [ConsulWrapper] Registering 'plop' in consul
 ...
 2019/04/11 20:17:14 [ConsulWrapper] Process is running

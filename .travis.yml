@@ -5,6 +5,7 @@ script:
 - go get -u
 - GOOS=linux go build -o consul-wrapper-linux
 - GOOS=darwin go build -o consul-wrapper-macos
+- GOOS=windows go get
 - GOOS=windows go build -o consul-wrapper-windows.exe
 sudo: false
 before_deploy:
@@ -23,3 +24,4 @@ deploy:
   skip_cleanup: true
   on:
     repo: tionebsalocin/consul-wrapper
+    tags: true
