@@ -30,3 +30,6 @@ Flags:
 2019/04/11 20:17:40 [ConsulWrapper] Process stopped running. Exit code:  -1
 2019/04/11 20:17:40 [ConsulWrapper] Deregistering 'plop' from consul
 ```
+# Todo
+
+* Service definition via json file
