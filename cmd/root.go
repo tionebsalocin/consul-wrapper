@@ -15,10 +15,10 @@ var frequency time.Duration
 var port int
 
 func init() {
-	RootCmd.Flags().StringVarP(&token, "token", "t", "", "Consul token used for registration")
+	RootCmd.PersistentFlags().StringVarP(&token, "token", "t", "", "Consul token used for registration")
 	RootCmd.Flags().StringVarP(&service, "service", "s", "", "Consul Service Name")
 	RootCmd.Flags().IntVarP(&port, "port", "p", 0, "Service port")
-	RootCmd.Flags().DurationVarP(&frequency, "frequency", "f", 30*time.Second, "Health Check Frequency (in seconds)")
+	RootCmd.PersistentFlags().DurationVarP(&frequency, "frequency", "f", 30*time.Second, "Health Check Frequency (in seconds)")
 }
 
 var RootCmd = &cobra.Command{
