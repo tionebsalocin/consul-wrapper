@@ -8,7 +8,12 @@ If by any change the command stops working it will be deregistered automatically
 
 ```
 Usage:
-  consul-wrapper [flags] "<command> [args]"
+  consul-wrapper [flags]
+  consul-wrapper [command]
+
+Available Commands:
+  help        Help about any command
+  json        Create a consul service based on config file
 
 Flags:
   -f, --frequency duration   Health Check Frequency (in seconds) (default 30s)
