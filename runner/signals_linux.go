@@ -1,6 +1,7 @@
 package runner
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -9,9 +10,10 @@ import (
 
 func signalWatch(cmd *exec.Cmd) {
 	signals := make(chan os.Signal, 1)
-	signal.Notify(signals, syscall.SIGINT, syscall.SIGTERM)
+	signal.Notify(signals, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGTERM)
 	go func() {
 		sig := <-signals
-		syscall.Kill(cmd.Process.Pid, sig.(syscall.Signal))
+		fmt.Println("Received Signal", sig, "sending SIGTERM to child", cmd.Process.Pid)
+		syscall.Kill(cmd.Process.Pid, syscall.SIGTERM)
 	}()
 }
